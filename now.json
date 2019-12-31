@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "name": "err.li",
+  "alias": "err.li",
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "^/(?<user>[^/][^/]*)/(?<repo>[^/][^/]*)/(?<error>[^/][^/]*)(/|)$",
+      "status": 302,
+      "headers": {
+        "Location": "https://github.com/$user/$repo/blob/master/errors/$error.md"
+      }
+    },
+    {
+      "src": "^/(?<repo>[^/][^/]*)/(?<error>[^/][^/]*)(/|)$",
+      "status": 302,
+      "headers": {
+        "Location": "https://github.com/ondrejsika/$repo/blob/master/errors/$error.md"
+      }
+    },
+    {
+      "src": "^/(?<error>[^/][^/]*)(/|)$",
+      "status": 302,
+      "headers": {
+        "Location": "https://github.com/ondrejsika/errors/blob/master/errors/$error.md"
+      }
+    }
+  ]
+}
